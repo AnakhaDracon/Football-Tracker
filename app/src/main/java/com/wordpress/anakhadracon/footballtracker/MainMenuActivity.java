@@ -1,9 +1,12 @@
 package com.wordpress.anakhadracon.footballtracker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class MainMenuActivity extends Activity {
 
@@ -33,5 +36,16 @@ public class MainMenuActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onButtonStartPress(View view)
+    {
+        Intent intent = new Intent(this, OfficialsNameActivity.class);
+        EditText eText = (EditText) findViewById(R.id.editText);
+
+        Integer officialCount = Integer.parseInt(eText.getText().toString());
+        intent.putExtra("NumOfficials", officialCount);
+
+        startActivity(intent);
     }
 }

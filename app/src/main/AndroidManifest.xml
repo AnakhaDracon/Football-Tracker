@@ -16,6 +16,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".OfficialsNameActivity"
+            android:label="@string/title_activity_officials_name"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wordpress.anakhadracon.footballtracker.MainMenuActivity" />
+        </activity>
+        <activity
+            android:name=".FootballGameActivity"
+            android:label="@string/title_activity_football_game"
+            android:parentActivityName=".OfficialsNameActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wordpress.anakhadracon.footballtracker.OfficialsNameActivity" />
+        </activity>
     </application>
 
 </manifest>
