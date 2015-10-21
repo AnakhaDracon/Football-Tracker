@@ -14,4 +14,13 @@
     <string name="play_counter">Play Counter:  </string>
     <string name="num_officials"># of Officials:  </string>
     <string name="save_play">Save Play</string>
+
+    <string-array name="fouls_name_array">
+        <item>False Start</item>
+        <item>Offside</item>
+        <item>Illegal Formation</item>
+        <item>Illegal Shift</item>
+
+        <item>None</item>
+    </string-array>
 </resources>

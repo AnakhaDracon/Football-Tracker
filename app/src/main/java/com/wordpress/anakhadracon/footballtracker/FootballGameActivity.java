@@ -2,6 +2,7 @@ package com.wordpress.anakhadracon.footballtracker;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,20 +41,23 @@ public class FootballGameActivity extends Activity {
 
         //LayoutParams linLayoutParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
+        Resources res = getResources();
         Intent intent = getIntent();
         numOfficials = intent.getIntExtra("NumOfficials", 5);
         playCounter = 1;
 
-        ListView lView = (ListView) findViewById(R.id.officialsListView);
+        Spinner lView = (Spinner) findViewById(R.id.spinnerOfficials);
         ArrayList<String> officialsName = intent.getStringArrayListExtra("OfficialsList");
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, officialsName);
-
         lView.setAdapter(arrayAdapter);
-        //layout.addView(lView);
+
+        Spinner sFouls = (Spinner) findViewById(R.id.spinnerFouls);
+        ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, res.getStringArray(R.array.fouls_name_array));
+        sFouls.setAdapter(arrayAdapter2);
 
         TextView tView = (TextView)findViewById(R.id.textViewPlayCounter);
         tView.setText(playCounter.toString());
