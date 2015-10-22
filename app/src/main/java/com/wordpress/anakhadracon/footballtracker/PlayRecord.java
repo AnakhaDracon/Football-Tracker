@@ -9,9 +9,9 @@ public class PlayRecord
 {
     Integer mPlayNumber;
     EPlayType mPlayType;
-    ArrayList<EFouls> mFouls;
+    ArrayList<FoulRecord> mFouls;
 
-    public PlayRecord(Integer play, EPlayType type, ArrayList<EFouls> fouls)
+    public PlayRecord(Integer play, EPlayType type, ArrayList<FoulRecord> fouls)
     {
         mPlayNumber = play;
         mPlayType = type;

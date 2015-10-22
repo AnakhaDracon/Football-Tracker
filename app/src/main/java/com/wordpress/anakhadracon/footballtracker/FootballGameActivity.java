@@ -28,6 +28,7 @@ public class FootballGameActivity extends Activity {
     Integer playCounter;
 
     ArrayList<PlayRecord> mPlays;
+    ArrayList<FoulRecord> fouls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class FootballGameActivity extends Activity {
         //layout.setOrientation(LinearLayout.VERTICAL);
 
         //LayoutParams linLayoutParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        fouls = new ArrayList<>();
 
         Resources res = getResources();
         Intent intent = getIntent();
@@ -92,12 +94,31 @@ public class FootballGameActivity extends Activity {
 
     public void SavePlayClicked(View view)
     {
-        ArrayList<EFouls> fouls = new ArrayList<>();
         PlayRecord record = new PlayRecord(playCounter, EPlayType.KICK_OFF, fouls);
         mPlays.add(record);
 
         playCounter++;
         TextView tView = (TextView)findViewById(R.id.textViewPlayCounter);
         tView.setText(playCounter.toString());
+
+        fouls.clear();
+        TextView tView2 = (TextView)findViewById(R.id.textViewNumFouls);
+        Integer size = fouls.size();
+        tView2.setText(size.toString());
+    }
+
+    public void SaveFoul(View view)
+    {
+        Spinner officialSpinner = (Spinner)findViewById(R.id.spinnerOfficials);
+        String officialText = officialSpinner.getSelectedItem().toString();
+
+        Spinner foulSpinner = (Spinner)findViewById(R.id.spinnerFouls);
+        String foulText = foulSpinner.getSelectedItem().toString();
+        FoulRecord foul = new FoulRecord(officialText, foulText);
+
+        fouls.add(foul);
+        TextView tView = (TextView)findViewById(R.id.textViewNumFouls);
+        Integer size = fouls.size();
+        tView.setText(size.toString());
     }
 }

@@ -14,6 +14,8 @@
     <string name="play_counter">Play Counter:  </string>
     <string name="num_officials"># of Officials:  </string>
     <string name="save_play">Save Play</string>
+    <string name="add_foul">Add Foul</string>
+    <string name="num_fouls"># of Fouls</string>
 
     <string-array name="fouls_name_array">
         <item>False Start</item>
