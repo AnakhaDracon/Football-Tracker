@@ -33,41 +33,43 @@ public class FootballGameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // set LinearLayout as a root element of the screen
-        //setContentView(layout);
         setContentView(R.layout.activity_football_game);
 
-        //layout = new LinearLayout(this);
-        //layout.setOrientation(LinearLayout.VERTICAL);
-
-        //LayoutParams linLayoutParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        // Create our ArrayList to hold the fouls on a play and the play records.
         fouls = new ArrayList<>();
+        mPlays = new ArrayList<>();
 
+        // Grab the resources so I can get the string arrays
+        // Grab the intent data for the number of officials
+        // Set the play counter to 1 since we are at the beginning of the game
         Resources res = getResources();
         Intent intent = getIntent();
         numOfficials = intent.getIntExtra("NumOfficials", 5);
         playCounter = 1;
 
+        // Setup the officials name list using an array adapter from the data that was passed
         Spinner lView = (Spinner) findViewById(R.id.spinnerOfficials);
         ArrayList<String> officialsName = intent.getStringArrayListExtra("OfficialsList");
-
-        // This is the array adapter, it takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and your
-        // array as a third parameter.
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, officialsName);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, officialsName);
         lView.setAdapter(arrayAdapter);
 
+        // Grab the foul data from the resources and get it into its spinner
         Spinner sFouls = (Spinner) findViewById(R.id.spinnerFouls);
-        ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, res.getStringArray(R.array.fouls_name_array));
+        ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, res.getStringArray(R.array.fouls_name_array));
         sFouls.setAdapter(arrayAdapter2);
 
+        // Same as above, get the play types from the resources
+        Spinner sPlays = (Spinner) findViewById(R.id.spinnerPlayType);
+        ArrayAdapter<String> arrayAdapter3 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, res.getStringArray(R.array.plays_name_array));
+        sPlays.setAdapter(arrayAdapter3);
+
+        // Get the play counter set up.
         TextView tView = (TextView)findViewById(R.id.textViewPlayCounter);
         tView.setText(playCounter.toString());
 
+        // Set the number of officials.
         TextView tView2 = (TextView)findViewById(R.id.textViewNumOfficials);
         tView2.setText(numOfficials.toString());
-
-        mPlays = new ArrayList<PlayRecord>();
     }
 
     @Override
@@ -94,13 +96,20 @@ public class FootballGameActivity extends Activity {
 
     public void SavePlayClicked(View view)
     {
-        PlayRecord record = new PlayRecord(playCounter, EPlayType.KICK_OFF, fouls);
+        // Get the play type
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerFouls);
+        String playType = spinner.getSelectedItem().toString();
+
+        // Create the play record and store it in the array list.
+        PlayRecord record = new PlayRecord(playCounter, playType, fouls);
         mPlays.add(record);
 
+        // Update the playCounter and update the screen.
         playCounter++;
         TextView tView = (TextView)findViewById(R.id.textViewPlayCounter);
         tView.setText(playCounter.toString());
 
+        // Clear fouls as we have saved a play. Also update the screen counter.
         fouls.clear();
         TextView tView2 = (TextView)findViewById(R.id.textViewNumFouls);
         Integer size = fouls.size();
@@ -109,14 +118,18 @@ public class FootballGameActivity extends Activity {
 
     public void SaveFoul(View view)
     {
+        // Grab the calling official
         Spinner officialSpinner = (Spinner)findViewById(R.id.spinnerOfficials);
         String officialText = officialSpinner.getSelectedItem().toString();
 
+        // Grab the foul name
         Spinner foulSpinner = (Spinner)findViewById(R.id.spinnerFouls);
         String foulText = foulSpinner.getSelectedItem().toString();
         FoulRecord foul = new FoulRecord(officialText, foulText);
 
         fouls.add(foul);
+
+        // Find the number of fouls we have saved for this play and update screen.
         TextView tView = (TextView)findViewById(R.id.textViewNumFouls);
         Integer size = fouls.size();
         tView.setText(size.toString());

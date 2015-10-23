@@ -25,4 +25,11 @@
 
         <item>None</item>
     </string-array>
+
+    <string-array name="plays_name_array">
+        <item>Kick Off</item>
+        <item>Try</item>
+        <item>Scrimmage</item>
+        <item>Punt</item>
+    </string-array>
 </resources>

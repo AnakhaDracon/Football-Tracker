@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class PlayRecord
 {
     Integer mPlayNumber;
-    EPlayType mPlayType;
+    String mPlayType;
     ArrayList<FoulRecord> mFouls;
 
-    public PlayRecord(Integer play, EPlayType type, ArrayList<FoulRecord> fouls)
+    public PlayRecord(Integer play, String type, ArrayList<FoulRecord> fouls)
     {
         mPlayNumber = play;
         mPlayType = type;
