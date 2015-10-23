@@ -24,7 +24,7 @@ public class PlayRecord
         String result = mPlayNumber + "," + mPlayType + ",";
         for(Integer i = 0; i < mFouls.size(); i++)
         {
-            result += mFouls.get(i).toString() + ",";
+            result.concat(mFouls.get(i).toString() + ",");
         }
         return result;
     }

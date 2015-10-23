@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
@@ -95,20 +96,30 @@ public class FootballGameActivity extends Activity {
 
     public void SaveGameClicked(View view)
     {
+        File dir = getDir("GameData", Context.MODE_WORLD_WRITEABLE | Context.MODE_WORLD_READABLE);
+
         FileOutputStream fileOut;
+        //File dir = new File("Football_Tracker/");
+        //dir.mkdirs();
 
         try
         {
-            fileOut = openFileOutput("Game.csv", Context.MODE_WORLD_READABLE);
+            fileOut = openFileOutput("Game.txt", Context.MODE_WORLD_WRITEABLE | Context.MODE_WORLD_READABLE);
             for(Integer i = 0; i < _plays.size(); i++)
             {
                 PlayRecord play = _plays.get(i);
                 fileOut.write(play.toString().getBytes());
             }
+            fileOut.flush();
             fileOut.close();
+            FileInputStream fileIn = openFileInput("Game.txt");
+
+            TextView tView = (TextView)findViewById(R.id.textView4);
+            int data = fileIn.read();
+            tView.setText(data);
+            fileIn.close();
         }
-        catch(Exception e)
-        {
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
