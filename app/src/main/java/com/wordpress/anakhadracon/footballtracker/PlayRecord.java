@@ -18,4 +18,14 @@ public class PlayRecord
         mFouls = fouls;
     }
 
+    @Override
+    public String toString()
+    {
+        String result = mPlayNumber + "," + mPlayType + ",";
+        for(Integer i = 0; i < mFouls.size(); i++)
+        {
+            result += mFouls.get(i).toString() + ",";
+        }
+        return result;
+    }
 }

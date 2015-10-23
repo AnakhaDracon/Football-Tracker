@@ -72,9 +72,9 @@
         android:layout_height="wrap_content"
         android:text="@string/add_foul"
         android:id="@+id/buttonAddFoul"
-        android:layout_above="@+id/spinnerFouls"
-        android:layout_alignEnd="@+id/spinnerFouls"
-        android:onClick="SaveFoul"/>
+        android:onClick="SaveFoul"
+        android:layout_alignTop="@+id/spinnerTeams"
+        android:layout_alignEnd="@+id/spinnerFouls" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -99,6 +99,25 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinnerPlayType"
         android:layout_below="@+id/textView3"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/textViewNumFouls" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerTeams"
+        android:layout_above="@+id/spinnerFouls"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/buttonAddFoul" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_game"
+        android:id="@+id/button"
+        android:layout_alignTop="@+id/textViewNumFouls"
+        android:layout_alignStart="@+id/buttonNextPlay"
+        android:onClick="SaveGameClicked"/>
 
 </RelativeLayout>

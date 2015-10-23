@@ -34,7 +34,7 @@ public class OfficialsNameActivity extends Activity {
         while(loopCount < numOfficials)
         {
             EditText eText = new EditText(this);
-            eText.setText("Official #" + (loopCount+1) + " Name");
+            eText.setHint("Official #" + (loopCount+1) + " Name");
             eText.setId(500 + loopCount);
 
             layout.addView(eText);

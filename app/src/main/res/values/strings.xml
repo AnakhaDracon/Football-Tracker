@@ -16,12 +16,77 @@
     <string name="save_play">Save Play</string>
     <string name="add_foul">Add Foul</string>
     <string name="num_fouls"># of Fouls</string>
+    <string name="save_game">Save Game</string>
 
     <string-array name="fouls_name_array">
         <item>False Start</item>
         <item>Offside</item>
         <item>Illegal Formation</item>
         <item>Illegal Shift</item>
+        <item>Delay of Game</item>
+        <item>Improper Equipment</item>
+        <item>Illegal Substitution</item>
+        <item>Free Kick Infraction</item>
+        <item>Encroachment</item>
+        <item>Free Kick OOB</item>
+        <item>Invalid/Illegal Fair Catch Signal</item>
+        <item>Snap Infraction</item>
+        <item>Numbering Violation</item>/
+        <item>Planned Loose-ball Infraction</item>
+        <item>Illegally Handing Ball (F)</item>
+        <item>Illegal Forward Pass</item>
+        <item>Intentional Grounding</item>
+        <item>Ineligible Downfield</item>
+        <item>Illegal Touching</item>
+        <item>Helping Runner</item>
+        <item>Incidental Facemask</item>
+        <item>Running into Kicker/Holder</item>
+        <item>Sideline Interference</item>
+        <item>Failure to Wear Equipment</item>
+        <item>Attendant Illegally on Field</item>
+        <item>Nonplayer Outside Team Box</item>
+
+        <item>Illegal Blocking Technique</item>
+        <item>Interlocking Blocking</item>
+        <item>Holding</item>
+        <item>Runner Grasping Teammate</item>
+        <item>Illegal Use of Hands/Arm</item>
+        <item>Illegal Block in Back</item>
+        <item>Illegal Block on Free Kick</item>
+
+        <item>Unsportsmanlike</item>
+        <item>Contact Against Defenseless</item>
+        <item>Illegal Kicking or Batting</item>
+        <item>Illegal Block After FC</item>
+        <item>KCI</item>
+        <item>Pass Interference</item>
+        <item>Illegal Block Below Waist</item>
+        <item>Clipping</item>
+        <item>Chop Block</item>
+        <item>Tripping</item>
+        <item>Illegal Personal Contact</item>
+        <item>Charging into When Out of Play</item>
+        <item>Facemask</item>
+        <item>Illegal Helmet Contact</item>
+        <item>Horse-collar</item>
+        <item>Ini Contact with Helmetless Opp</item>
+        <item>Targeting</item>
+        <item>Roughing Passer</item>
+        <item>Roughing Kicker/Holder</item>
+        <item>Roughing Snapper</item>
+        <item>Slapping</item>
+        <item>Illegal Personal Contact</item>
+        <item>Illegal Participation</item>
+        <item>Participating without Helmet</item>
+        <item>Sideline Interference (15 Yards)</item>
+        <item>Nonplayer illegally on Field</item>
+        <item>Unfair Acts</item>
+
+        <item>Fighting</item>
+        <item>Intentionally Contacting Official</item>
+        <item>Striking/Kicking/Kneeing</item>
+        <item>Flagrant</item>
+        <item>Substitute Leaving Box During Fight</item>
 
         <item>None</item>
     </string-array>
@@ -31,5 +96,10 @@
         <item>Try</item>
         <item>Scrimmage</item>
         <item>Punt</item>
+    </string-array>
+
+    <string-array name="teams_name_array">
+        <item>Home</item>
+        <item>Visitor</item>
     </string-array>
 </resources>

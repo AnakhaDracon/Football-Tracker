@@ -1,51 +1,44 @@
 package com.wordpress.anakhadracon.footballtracker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FootballGameActivity extends Activity {
+    Integer _numOfficials;
+    Integer _playCounter;
 
-    //LinearLayout layout;
-    Integer numOfficials;
-    Integer playCounter;
-
-    ArrayList<PlayRecord> mPlays;
-    ArrayList<FoulRecord> fouls;
+    ArrayList<PlayRecord> _plays;
+    ArrayList<FoulRecord> _fouls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_football_game);
 
-        // Create our ArrayList to hold the fouls on a play and the play records.
-        fouls = new ArrayList<>();
-        mPlays = new ArrayList<>();
+        // Create our ArrayList to hold the _fouls on a play and the play records.
+        _fouls = new ArrayList<>();
+        _plays = new ArrayList<>();
 
         // Grab the resources so I can get the string arrays
         // Grab the intent data for the number of officials
         // Set the play counter to 1 since we are at the beginning of the game
         Resources res = getResources();
         Intent intent = getIntent();
-        numOfficials = intent.getIntExtra("NumOfficials", 5);
-        playCounter = 1;
+        _numOfficials = intent.getIntExtra("NumOfficials", 5);
+        _playCounter = 1;
 
         // Setup the officials name list using an array adapter from the data that was passed
         Spinner lView = (Spinner) findViewById(R.id.spinnerOfficials);
@@ -63,13 +56,19 @@ public class FootballGameActivity extends Activity {
         ArrayAdapter<String> arrayAdapter3 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, res.getStringArray(R.array.plays_name_array));
         sPlays.setAdapter(arrayAdapter3);
 
+        // Now we are grabbing team names, at this time just home and visitors, but there
+        // is an enhancement here to actually grab team names from the user during the setup.
+        Spinner sTeams = (Spinner) findViewById(R.id.spinnerTeams);
+        ArrayAdapter<String> arrayAdapter4 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, res.getStringArray(R.array.teams_name_array));
+        sTeams.setAdapter(arrayAdapter4);
+
         // Get the play counter set up.
         TextView tView = (TextView)findViewById(R.id.textViewPlayCounter);
-        tView.setText(playCounter.toString());
+        tView.setText(_playCounter.toString());
 
         // Set the number of officials.
         TextView tView2 = (TextView)findViewById(R.id.textViewNumOfficials);
-        tView2.setText(numOfficials.toString());
+        tView2.setText(_numOfficials.toString());
     }
 
     @Override
@@ -94,6 +93,26 @@ public class FootballGameActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void SaveGameClicked(View view)
+    {
+        FileOutputStream fileOut;
+
+        try
+        {
+            fileOut = openFileOutput("Game.csv", Context.MODE_WORLD_READABLE);
+            for(Integer i = 0; i < _plays.size(); i++)
+            {
+                PlayRecord play = _plays.get(i);
+                fileOut.write(play.toString().getBytes());
+            }
+            fileOut.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void SavePlayClicked(View view)
     {
         // Get the play type
@@ -101,18 +120,18 @@ public class FootballGameActivity extends Activity {
         String playType = spinner.getSelectedItem().toString();
 
         // Create the play record and store it in the array list.
-        PlayRecord record = new PlayRecord(playCounter, playType, fouls);
-        mPlays.add(record);
+        PlayRecord record = new PlayRecord(_playCounter, playType, _fouls);
+        _plays.add(record);
 
-        // Update the playCounter and update the screen.
-        playCounter++;
+        // Update the _playCounter and update the screen.
+        _playCounter++;
         TextView tView = (TextView)findViewById(R.id.textViewPlayCounter);
-        tView.setText(playCounter.toString());
+        tView.setText(_playCounter.toString());
 
-        // Clear fouls as we have saved a play. Also update the screen counter.
-        fouls.clear();
+        // Clear _fouls as we have saved a play. Also update the screen counter.
+        _fouls.clear();
         TextView tView2 = (TextView)findViewById(R.id.textViewNumFouls);
-        Integer size = fouls.size();
+        Integer size = _fouls.size();
         tView2.setText(size.toString());
     }
 
@@ -125,13 +144,16 @@ public class FootballGameActivity extends Activity {
         // Grab the foul name
         Spinner foulSpinner = (Spinner)findViewById(R.id.spinnerFouls);
         String foulText = foulSpinner.getSelectedItem().toString();
-        FoulRecord foul = new FoulRecord(officialText, foulText);
 
-        fouls.add(foul);
+        Spinner teamSpinner = (Spinner)findViewById(R.id.spinnerTeams);
+        String team = teamSpinner.getSelectedItem().toString();
 
-        // Find the number of fouls we have saved for this play and update screen.
+        FoulRecord foul = new FoulRecord(officialText, foulText, team);
+        _fouls.add(foul);
+
+        // Find the number of _fouls we have saved for this play and update screen.
         TextView tView = (TextView)findViewById(R.id.textViewNumFouls);
-        Integer size = fouls.size();
+        Integer size = _fouls.size();
         tView.setText(size.toString());
     }
 }
